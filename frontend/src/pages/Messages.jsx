@@ -841,7 +841,6 @@ export default function Messages() {
     });
 
     // The key changes only when the set/order of conversation IDs changes.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser?.id, conversationsOwnerId, conversationIdsKey]);
   const handleBackToList = () => setMobileView('list');
 

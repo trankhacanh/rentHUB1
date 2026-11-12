@@ -26,6 +26,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -295,10 +296,12 @@ class ContractRevisionTransactionIntegrationTest {
                         .orElseThrow();
 
         ZonedDateTime renterSignedAt =
-                ZonedDateTime.now().minusHours(2);
+                ZonedDateTime.now().minusHours(2)
+                        .truncatedTo(ChronoUnit.MICROS);
 
         ZonedDateTime ownerSignedAt =
-                ZonedDateTime.now().minusHours(1);
+                ZonedDateTime.now().minusHours(1)
+                        .truncatedTo(ChronoUnit.MICROS);
 
         // Simulate a previously signed Version 1.
         versionOne.setRenterSignedAt(renterSignedAt);
