@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html[data-theme='dark'] {
+  color-scheme: dark;
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+html[data-theme='dark'] body {
+  background-color: #0f172a;
+  color: #e5e7eb;
+}
+
+html[data-theme='dark'] .bg-white,
+html[data-theme='dark'] .bg-white\/95,
+html[data-theme='dark'] .bg-gray-50,
+html[data-theme='dark'] .bg-slate-50,
+html[data-theme='dark'] .rh-card,
+html[data-theme='dark'] [style*='255, 255, 255'],
+html[data-theme='dark'] [style*='247, 249, 252'],
+html[data-theme='dark'] [style*='249, 250, 251'] {
+  background-color: #111827 !important;
+}
+
+html[data-theme='dark'] .text-gray-900,
+html[data-theme='dark'] .text-gray-800,
+html[data-theme='dark'] .text-gray-700,
+html[data-theme='dark'] .text-gray-600,
+html[data-theme='dark'] .text-slate-900,
+html[data-theme='dark'] .text-slate-800,
+html[data-theme='dark'] .text-slate-700,
+html[data-theme='dark'] .text-slate-600,
+html[data-theme='dark'] [style*='17, 24, 39'],
+html[data-theme='dark'] [style*='15, 27, 61'] {
+  color: #e5e7eb !important;
+}
+
+html[data-theme='dark'] .border-gray-100,
+html[data-theme='dark'] .border-gray-200,
+html[data-theme='dark'] .border-slate-100,
+html[data-theme='dark'] .border-slate-200,
+html[data-theme='dark'] [style*='238, 240, 243'],
+html[data-theme='dark'] [style*='229, 231, 235'] {
+  border-color: #374151 !important;
+}
+
+html[data-theme='dark'] input,
+html[data-theme='dark'] textarea,
+html[data-theme='dark'] select {
+  background-color: #1f2937;
+  color: #f3f4f6;
+  border-color: #4b5563;
+}
+
+html[data-theme='dark'] input::placeholder,
+html[data-theme='dark'] textarea::placeholder {
+  color: #9ca3af;
+}
+
+html[data-theme='dark'] table thead,
+html[data-theme='dark'] .hover\:bg-gray-50:hover,
+html[data-theme='dark'] .hover\:bg-gray-100:hover {
+  background-color: #1f2937 !important;
+}

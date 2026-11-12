@@ -1,0 +1,58 @@
+# =========================
+# General
+# =========================
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+
+# =========================
+# IDE & Editors
+# =========================
+.idea/
+.vscode/
+*.swp
+*.swo
+*.iml
+
+# =========================
+# Backend (Java / Maven)
+# =========================
+backend/target/
+backend/logs/
+*.jar
+*.war
+*.ear
+hs_err_pid*
+
+# =========================
+# Frontend (Node / Next.js)
+# =========================
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/dist/
+frontend/.vercel/
+frontend/coverage/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# Local test and backup artifacts
+backend/scripts/AvailableEquipmentCacheService.java.bak
+frontend/src.rar
+frontend/test-chat.html
+frontend/websocket-backup-*/
+
+# =========================
+# Docker & Infrastructure
+# =========================
+docker/data/
+docker/pgdata/
+docker/redisdata/
+docker/miniodata/
+**/.terraform/
+*.tfstate
+*.tfstate.*
