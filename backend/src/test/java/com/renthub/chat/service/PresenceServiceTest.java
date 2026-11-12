@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -18,6 +19,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.redis.core.SetOperations;
@@ -53,8 +55,8 @@ class PresenceServiceTest {
     @Test
     void connectShouldReturnOnlineTransition() {
         when(redisTemplate.execute(
-                any(RedisScript.class),
-                any(List.class),
+                ArgumentMatchers.<RedisScript<Long>>any(),
+                ArgumentMatchers.<String>anyList(),
                 any(Object[].class)
         )).thenReturn(1L);
 
@@ -63,7 +65,7 @@ class PresenceServiceTest {
         assertEquals(1L, result);
 
         verify(redisTemplate).execute(
-                any(RedisScript.class),
+                ArgumentMatchers.<RedisScript<Long>>any(),
                 eq(List.of(
                         "renthub:presence:session:" + sessionId,
                         "renthub:presence:user:" + userId + ":sessions",
@@ -78,8 +80,8 @@ class PresenceServiceTest {
     @Test
     void connectShouldReturnZeroWhenThereIsNoTransition() {
         when(redisTemplate.execute(
-                any(RedisScript.class),
-                any(List.class),
+                ArgumentMatchers.<RedisScript<Long>>any(),
+                ArgumentMatchers.<String>anyList(),
                 any(Object[].class)
         )).thenReturn(0L);
 
@@ -94,8 +96,8 @@ class PresenceServiceTest {
         );
 
         verify(redisTemplate, never()).execute(
-                any(RedisScript.class),
-                any(List.class),
+                ArgumentMatchers.<RedisScript<Long>>any(),
+                ArgumentMatchers.<String>anyList(),
                 any(Object[].class)
         );
     }
@@ -108,8 +110,8 @@ class PresenceServiceTest {
         );
 
         verify(redisTemplate, never()).execute(
-                any(RedisScript.class),
-                any(List.class),
+                ArgumentMatchers.<RedisScript<Long>>any(),
+                ArgumentMatchers.<String>anyList(),
                 any(Object[].class)
         );
     }
@@ -117,15 +119,15 @@ class PresenceServiceTest {
     @Test
     void heartbeatShouldReturnTrueForRegisteredSession() {
         when(redisTemplate.execute(
-                any(RedisScript.class),
-                any(List.class),
+                ArgumentMatchers.<RedisScript<Long>>any(),
+                ArgumentMatchers.<String>anyList(),
                 any(Object[].class)
         )).thenReturn(1L);
 
         assertTrue(presenceService.heartbeat(userId, sessionId));
 
         verify(redisTemplate).execute(
-                any(RedisScript.class),
+                ArgumentMatchers.<RedisScript<Long>>any(),
                 eq(List.of(
                         "renthub:presence:session:" + sessionId,
                         "renthub:presence:user:" + userId + ":sessions"
@@ -139,8 +141,8 @@ class PresenceServiceTest {
     @Test
     void heartbeatShouldReturnFalseWhenSessionIsNotOwnedByUser() {
         when(redisTemplate.execute(
-                any(RedisScript.class),
-                any(List.class),
+                ArgumentMatchers.<RedisScript<Long>>any(),
+                ArgumentMatchers.<String>anyList(),
                 any(Object[].class)
         )).thenReturn(0L);
 
@@ -154,8 +156,8 @@ class PresenceServiceTest {
         assertFalse(presenceService.heartbeat(userId, " "));
 
         verify(redisTemplate, never()).execute(
-                any(RedisScript.class),
-                any(List.class),
+                ArgumentMatchers.<RedisScript<Long>>any(),
+                ArgumentMatchers.<String>anyList(),
                 any(Object[].class)
         );
     }
@@ -163,30 +165,32 @@ class PresenceServiceTest {
     @Test
     void disconnectShouldReturnOfflineTransition() {
         when(redisTemplate.execute(
-                any(RedisScript.class),
-                any(List.class),
+                ArgumentMatchers.<RedisScript<Long>>any(),
+                ArgumentMatchers.<String>anyList(),
                 any(Object[].class)
         )).thenReturn(-1L);
 
         assertEquals(-1L, presenceService.disconnect(userId, sessionId));
 
         verify(redisTemplate).execute(
-                any(RedisScript.class),
+                ArgumentMatchers.<RedisScript<Long>>any(),
                 eq(List.of(
                         "renthub:presence:session:" + sessionId,
                         "renthub:presence:user:" + userId + ":sessions",
-                        "renthub:presence:user:" + userId + ":status"
+                        "renthub:presence:user:" + userId + ":status",
+                        "renthub:presence:user:" + userId + ":lastSeenAt"
                 )),
                 eq(userId.toString()),
-                eq(sessionId)
+                eq(sessionId),
+                anyString()
         );
     }
 
     @Test
     void disconnectShouldReturnZeroWhenUserRemainsOnline() {
         when(redisTemplate.execute(
-                any(RedisScript.class),
-                any(List.class),
+                ArgumentMatchers.<RedisScript<Long>>any(),
+                ArgumentMatchers.<String>anyList(),
                 any(Object[].class)
         )).thenReturn(0L);
 
@@ -200,8 +204,8 @@ class PresenceServiceTest {
         assertEquals(0L, presenceService.disconnect(userId, " "));
 
         verify(redisTemplate, never()).execute(
-                any(RedisScript.class),
-                any(List.class),
+                ArgumentMatchers.<RedisScript<Long>>any(),
+                ArgumentMatchers.<String>anyList(),
                 any(Object[].class)
         );
     }
@@ -209,28 +213,30 @@ class PresenceServiceTest {
     @Test
     void reconcileShouldReturnOnlineTransition() {
         when(redisTemplate.execute(
-                any(RedisScript.class),
-                any(List.class),
+                ArgumentMatchers.<RedisScript<Long>>any(),
+                ArgumentMatchers.<String>anyList(),
                 any(Object[].class)
         )).thenReturn(1L);
 
         assertEquals(1L, presenceService.reconcile(userId));
 
         verify(redisTemplate).execute(
-                any(RedisScript.class),
+                ArgumentMatchers.<RedisScript<Long>>any(),
                 eq(List.of(
                         "renthub:presence:user:" + userId + ":sessions",
-                        "renthub:presence:user:" + userId + ":status"
+                        "renthub:presence:user:" + userId + ":status",
+                        "renthub:presence:user:" + userId + ":lastSeenAt"
                 )),
-                eq(userId.toString())
+                eq(userId.toString()),
+                anyString()
         );
     }
 
     @Test
     void reconcileShouldReturnOfflineTransition() {
         when(redisTemplate.execute(
-                any(RedisScript.class),
-                any(List.class),
+                ArgumentMatchers.<RedisScript<Long>>any(),
+                ArgumentMatchers.<String>anyList(),
                 any(Object[].class)
         )).thenReturn(-1L);
 
@@ -242,8 +248,8 @@ class PresenceServiceTest {
         assertEquals(0L, presenceService.reconcile(null));
 
         verify(redisTemplate, never()).execute(
-                any(RedisScript.class),
-                any(List.class),
+                ArgumentMatchers.<RedisScript<Long>>any(),
+                ArgumentMatchers.<String>anyList(),
                 any(Object[].class)
         );
     }
