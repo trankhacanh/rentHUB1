@@ -1,7 +1,9 @@
 
 import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
+
 import AppHeader from './AppHeader';
+import AiChatWidget from '../../features/ai-assistant/components/AiChatWidget';
 
 export default function MainLayout() {
   const { pathname } = useLocation();
@@ -28,7 +30,11 @@ export default function MainLayout() {
           minimal={isMinimalHeader}
         />
       )}
+
       <Outlet />
+
+      {/* AI Assistant: chỉ hiển thị trên các trang chính */}
+      {!hideHeader && <AiChatWidget />}
     </>
   );
 }

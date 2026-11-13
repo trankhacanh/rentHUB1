@@ -1,4 +1,28 @@
 spring:
+  ai:
+    model:
+      chat: ollama
+      embedding: ollama
+
+    ollama:
+      base-url: http://localhost:11434
+
+      chat:
+        options:
+          model: qwen3:4b-instruct
+          temperature: 0.3
+          num-ctx: 2048
+          num-predict: 160
+
+      embedding:
+        model: nomic-embed-text:latest
+        keep-alive: 10m
+        truncate: true
+
+    vectorstore:
+      pgvector:
+        initialize-schema: true
+        remove-existing-vector-store-table: false
   application:
     name: renthub-backend
 
@@ -121,3 +145,6 @@ logging:
     org.springframework.amqp.rabbit.core: DEBUG
     org.hibernate.SQL: WARN
     org.hibernate.orm.jdbc.bind: WARN
+    com.renthub.ai.tools.EquipmentSearchTool: DEBUG
+    com.renthub.ai.tools: DEBUG
+    com.renthub.ai.application: DEBUG
