@@ -1,0 +1,574 @@
+.renthub-ai-widget {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 1200;
+  font-family: inherit;
+}
+
+.renthub-ai-launcher {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 54px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 999px;
+  background: #1746a2;
+  color: #fff;
+  box-shadow: 0 10px 30px rgb(15 40 90 / 24%);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 650;
+  transition:
+    transform 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.renthub-ai-launcher:hover {
+  transform: translateY(-2px);
+  background: #123b8c;
+  box-shadow: 0 14px 34px rgb(15 40 90 / 30%);
+}
+
+.renthub-ai-launcher.is-open {
+  width: 52px;
+  min-height: 52px;
+  padding: 0;
+  background: #26364d;
+  font-size: 30px;
+  font-weight: 300;
+}
+
+.renthub-ai-mark {
+  display: inline-grid;
+  width: 25px;
+  height: 25px;
+  place-items: center;
+  color: currentColor;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.renthub-ai-panel {
+  position: absolute;
+  right: 0;
+  bottom: 68px;
+  display: flex;
+  width: min(410px, calc(100vw - 32px));
+  height: min(650px, calc(100dvh - 112px));
+  min-height: 390px;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #dce4ef;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 22px 70px rgb(15 31 56 / 22%);
+  color: #172033;
+}
+
+.renthub-ai-header {
+  display: flex;
+  min-height: 76px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: #1746a2;
+  color: #fff;
+}
+
+.renthub-ai-header-identity,
+.renthub-ai-header-actions {
+  display: flex;
+  align-items: center;
+}
+
+.renthub-ai-header-identity {
+  gap: 11px;
+}
+
+.renthub-ai-avatar,
+.renthub-ai-message-avatar {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 17%);
+}
+
+.renthub-ai-avatar {
+  width: 43px;
+  height: 43px;
+}
+
+.renthub-ai-header h2 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 750;
+  letter-spacing: 0.1px;
+}
+
+.renthub-ai-header p {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 4px 0 0;
+  color: rgb(255 255 255 / 82%);
+  font-size: 11px;
+}
+
+.renthub-ai-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #75e0a1;
+}
+
+.renthub-ai-header-actions {
+  gap: 5px;
+}
+
+.renthub-ai-icon-button {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 23px;
+}
+
+.renthub-ai-icon-button:hover:not(:disabled) {
+  background: rgb(255 255 255 / 15%);
+}
+
+.renthub-ai-icon-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.renthub-ai-messages {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 17px;
+  overflow-y: auto;
+  padding: 20px 16px;
+  background: #f7f9fc;
+  overscroll-behavior: contain;
+}
+
+.renthub-ai-intro-label {
+  color: #8793a5;
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: 1.1px;
+}
+
+.renthub-ai-message {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.renthub-ai-message--user {
+  justify-content: flex-end;
+}
+
+.renthub-ai-message-avatar {
+  width: 27px;
+  height: 27px;
+  background: #e5edfc;
+  color: #1746a2;
+}
+
+.renthub-ai-message-avatar .renthub-ai-mark {
+  width: 18px;
+  height: 18px;
+  font-size: 17px;
+}
+
+.renthub-ai-bubble {
+  max-width: 84%;
+  padding: 11px 13px;
+  border: 1px solid #e5eaf1;
+  border-radius: 15px 15px 15px 4px;
+  background: #fff;
+  color: #273449;
+  box-shadow: 0 2px 5px rgb(20 40 70 / 3%);
+  overflow-wrap: anywhere;
+}
+
+.renthub-ai-message--user .renthub-ai-bubble {
+  border-color: #1746a2;
+  border-radius: 15px 15px 4px 15px;
+  background: #1746a2;
+  color: #fff;
+}
+
+.renthub-ai-bubble p {
+  margin: 0;
+  white-space: pre-wrap;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.renthub-ai-typing {
+  display: inline-flex;
+  min-width: 35px;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 0;
+}
+
+.renthub-ai-typing i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #8492a6;
+  animation: renthub-ai-pulse 1s infinite ease-in-out;
+}
+
+.renthub-ai-typing i:nth-child(2) {
+  animation-delay: 120ms;
+}
+
+.renthub-ai-typing i:nth-child(3) {
+  animation-delay: 240ms;
+}
+
+@keyframes renthub-ai-pulse {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+.renthub-ai-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #fff1f0;
+  color: #a52822;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.renthub-ai-error button {
+  flex: 0 0 auto;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.renthub-ai-composer {
+  padding: 12px 14px 9px;
+  border-top: 1px solid #e8edf4;
+  background: #fff;
+}
+
+.renthub-ai-composer textarea {
+  display: block;
+  width: 100%;
+  min-height: 54px;
+  max-height: 120px;
+  resize: vertical;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #172033;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.renthub-ai-composer textarea::placeholder {
+  color: #9aa5b5;
+}
+
+.renthub-ai-composer textarea:disabled {
+  opacity: 0.65;
+}
+
+.renthub-ai-composer-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.renthub-ai-composer-footer > span {
+  color: #9aa5b5;
+  font-size: 10px;
+}
+
+.renthub-ai-send-button,
+.renthub-ai-stop-button {
+  display: grid;
+  min-width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 0;
+  border-radius: 10px;
+  background: #1746a2;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.renthub-ai-send-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.renthub-ai-stop-button {
+  padding: 0 12px;
+  background: #26364d;
+  font-size: 11px;
+}
+
+.renthub-ai-disclaimer {
+  padding: 0 14px 12px;
+  background: #fff;
+  color: #9aa5b5;
+  font-size: 10px;
+  line-height: 1.45;
+  text-align: center;
+}
+
+@media (max-width: 520px) {
+  .renthub-ai-widget {
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .renthub-ai-panel {
+    position: fixed;
+    right: 8px;
+    bottom: 78px;
+    width: calc(100vw - 16px);
+    height: min(660px, calc(100dvh - 94px));
+    min-height: 360px;
+    border-radius: 17px;
+  }
+
+  .renthub-ai-launcher {
+    min-height: 50px;
+    padding: 0 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .renthub-ai-launcher,
+  .renthub-ai-typing i {
+    animation: none;
+    transition: none;
+  }
+}
+
+
+/* ================================
+   CONVERSATION HISTORY
+================================ */
+
+.renthub-ai-panel {
+  position: relative;
+}
+
+.renthub-ai-history-panel {
+  position: absolute;
+  z-index: 20;
+  top: 64px;
+  bottom: 90px;
+  left: 10px;
+
+  width: min(270px, calc(100% - 20px));
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 16px;
+
+  background: #ffffff;
+  border: 1px solid #e8eaf0;
+  border-radius: 14px;
+
+  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.16);
+
+  overflow: hidden;
+}
+
+.renthub-ai-history-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+
+  margin-bottom: 16px;
+}
+
+.renthub-ai-history-header h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #172033;
+}
+
+.renthub-ai-history-header p {
+  margin: 5px 0 0;
+  font-size: 12px;
+  color: #87909f;
+}
+
+.renthub-ai-history-header button {
+  width: 28px;
+  height: 28px;
+
+  border: none;
+  border-radius: 7px;
+
+  background: #f3f5f8;
+  color: #687386;
+
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.renthub-ai-history-new {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+  padding: 11px 12px;
+
+  border: 1px solid #e4e8ef;
+  border-radius: 9px;
+
+  background: #ffffff;
+  color: #24334c;
+
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.renthub-ai-history-new:hover {
+  background: #f5f7fb;
+  border-color: #cbd4e1;
+}
+
+.renthub-ai-history-new span {
+  font-size: 19px;
+  line-height: 1;
+}
+
+.renthub-ai-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  margin-top: 14px;
+  padding-right: 3px;
+
+  overflow-y: auto;
+}
+
+.renthub-ai-history-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  width: 100%;
+  padding: 11px;
+
+  border: 1px solid transparent;
+  border-radius: 9px;
+
+  background: #f7f8fa;
+  text-align: left;
+
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.renthub-ai-history-item:hover {
+  background: #f0f3f8;
+}
+
+.renthub-ai-history-item.is-active {
+  border-color: #c9d7ee;
+  background: #edf3fd;
+}
+
+.renthub-ai-history-item-title {
+  font-size: 13px;
+  font-weight: 650;
+  color: #26354c;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.renthub-ai-history-item-preview {
+  font-size: 11px;
+  color: #7d8797;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.renthub-ai-history-item-date {
+  font-size: 10px;
+  color: #a0a8b5;
+}
+
+.renthub-ai-history-empty {
+  padding: 16px 8px;
+  color: #8a94a4;
+  font-size: 12px;
+  text-align: center;
+}
+
+.renthub-ai-history-panel button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.renthub-ai-icon-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .renthub-ai-history-panel {
+    left: 8px;
+    right: 8px;
+    width: auto;
+  }
+}
+

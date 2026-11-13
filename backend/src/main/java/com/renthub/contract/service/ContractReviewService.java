@@ -21,7 +21,6 @@ import com.renthub.contract.dto.ContractRevisionRequestResponse;
 import com.renthub.contract.entity.ContractRevisionRequest;
 import com.renthub.contract.enums.ContractRevisionStatus;
 import com.renthub.contract.repository.ContractRevisionRequestRepository;
-import com.renthub.contract.dto.ReviseContractRequest;
 
 import com.renthub.contract.dto.ContractVersionResponse;
 import java.time.ZonedDateTime;

@@ -18,7 +18,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.reset;
 
-import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,7 +48,7 @@ class PresenceServiceIntegrationTest {
 
     @Autowired
     private PresenceService presenceService;
-    @SpyBean
+    @MockitoSpyBean
     private PresenceBroadcastService broadcastService;
 
     @Autowired

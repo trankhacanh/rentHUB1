@@ -11,7 +11,6 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import com.renthub.chat.entity.ConversationParticipant;
 import com.renthub.chat.repository.ConversationParticipantRepository;
 
 @Controller

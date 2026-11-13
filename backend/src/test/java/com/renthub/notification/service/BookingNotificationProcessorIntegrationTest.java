@@ -3,15 +3,14 @@ package com.renthub.notification.service;
 import com.renthub.notification.dto.BookingNotificationEvent;
 import com.renthub.notification.entity.Notification;
 import com.renthub.notification.repository.NotificationRepository;
-import com.renthub.notification.repository.ProcessedMessageEventRepository;
 import com.renthub.user.entity.User;
 import com.renthub.user.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -27,15 +26,12 @@ class BookingNotificationProcessorIntegrationTest {
     private BookingNotificationProcessor processor;
 
     @Autowired
-    private ProcessedMessageEventRepository processedEventRepository;
-
-    @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @MockBean
+    @MockitoBean
     private NotificationRepository notificationRepository;
 
-    @MockBean
+    @MockitoBean
     private UserRepository userRepository;
 
     private UUID eventId;
@@ -49,7 +45,8 @@ class BookingNotificationProcessorIntegrationTest {
             );
         }
 
-        reset(notificationRepository, userRepository);
+        reset(notificationRepository);
+        reset(userRepository);
     }
 
     @Test

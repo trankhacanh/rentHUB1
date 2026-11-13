@@ -14,6 +14,7 @@ public class RedisRateLimiter {
 
     private static final String KEY_PREFIX = "renthub:ratelimit:";
 
+    @SuppressWarnings("rawtypes")
     private static final DefaultRedisScript<List> RATE_LIMIT_SCRIPT;
 
 static {

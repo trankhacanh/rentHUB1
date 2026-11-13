@@ -28,7 +28,7 @@ import com.renthub.security.ratelimit.RateLimitFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
+import jakarta.servlet.DispatcherType;
 import java.util.List;
 
 @Configuration
@@ -55,9 +55,8 @@ public class SecurityConfig {
     public DaoAuthenticationProvider authenticationProvider() {
 
         DaoAuthenticationProvider authProvider =
-                new DaoAuthenticationProvider();
+                new DaoAuthenticationProvider(userDetailsService);
 
-        authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
 
         return authProvider;
@@ -112,7 +111,10 @@ public class SecurityConfig {
             // AUTHORIZATION RULES
             // ==============================
             .authorizeHttpRequests(auth -> auth
-
+                .dispatcherTypeMatchers(
+                    DispatcherType.ASYNC,
+                    DispatcherType.ERROR
+                ).permitAll()
                 .requestMatchers("/ws/**").permitAll()
 
                 // ------------------------------

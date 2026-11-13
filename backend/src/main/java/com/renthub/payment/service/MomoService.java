@@ -1,8 +1,6 @@
 
 package com.renthub.payment.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.renthub.payment.entity.Payment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,8 +20,6 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class MomoService {
-
-    private final ObjectMapper objectMapper;
 
     @Value("${renthub.payment.momo.api-url}")
     private String apiUrl;
